@@ -92,34 +92,41 @@ class _ContentViewState extends State<ContentView> {
             ),
             const SizedBox(height: 10),
             Container(
+              height: 120, // Altura fija para el contenedor
+              width: 300, // Ancho fijo para el contenedor
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Column(
-                children: appState.attempts.map((attempt) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Valor: ${attempt['value']}",
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        const SizedBox(width: 20),
-                        Text(
-                          "Puntos: ${attempt['points']}",
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.primaryColor,
+              child: ListView.builder(
+                itemCount: appState.attempts.length,
+                itemBuilder: (context, index) {
+                  final attempt = appState.attempts[index];
+                  return Card(
+                    color: Colors.white.withOpacity(0.1),
+                    margin: const EdgeInsets.symmetric(vertical: 5),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Valor: ${attempt['value']}",
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
-                        ),
-                      ],
+                          Text(
+                            "Puntos: ${attempt['points']}",
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primaryColor,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   );
-                }).toList(),
+                },
               ),
             ),
           ],
