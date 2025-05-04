@@ -80,6 +80,49 @@ class _ContentViewState extends State<ContentView> {
               ).textTheme.titleLarge?.copyWith(color: Colors.white),
             ),
           ),
+          
+          // Historial de intentos
+          if (appState.attempts.isNotEmpty) ...[
+            const SizedBox(height: 20),
+            Text(
+              "Últimos intentos:",
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: appState.attempts.map((attempt) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Valor: ${attempt['value']}",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        const SizedBox(width: 20),
+                        Text(
+                          "Puntos: ${attempt['points']}",
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
         ],
       ),
     );
